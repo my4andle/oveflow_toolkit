@@ -64,7 +64,7 @@ def main():
             print("Step 1: add code to shellcode.py")
             print("Step 2: import your variable at the top of this file")
             print("step 3: add an if condition like the one on line 60")
-            print("Don't worry, I will finish the tool eventually")
+            print("Don't worry, I will finish the tool eventually but for now im sending {}".format(payload))
         if proto.lower() == "tcp":
             send_tcp(rhost=rhost, rport=rport, iface=iface, payload=payload)
         elif proto.lower() == "udp":
