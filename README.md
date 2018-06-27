@@ -5,8 +5,8 @@ These are a collection of tools I have written to help me learn how to develop a
 I am not responsible for your actions, this code is to be used at your own risk and against systems you have permission to target.
 
 # Example
-#####Note the MS02_039 exploit code needs to be added by you, to the shellcode.py file
-#####I am not providing exploit code as part of this toolkit
+Note the MS02_039 exploit code needs to be added by you, to the shellcode.py file.  I am not currently providing exploit code as part of this toolkit
+
 sudo python2 attack_skeleton.py --rhost <target_ip> --rport 1434 --proto udp --exploit MS02_039
 
 # Note
