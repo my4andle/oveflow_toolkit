@@ -2,18 +2,19 @@
 """
 Usage:
   buffer_fuzz.py payload (--length=<length>)
-  buffer_fuzz.py fuzz (--rhost=<rhost> --rport=<rport> --interface=<interface> --wait=<wait> --delta=<delta> --proto=<proto>)
-  buffer_fuzz.py send (--rhost=<rhost> --rport=<rport> --length=<integer> --interface=<interface> --proto=<proto>)
-  buffer_fuzz.py send_a (--rhost=<rhost> --rport=<rport> --length=<integer> --interface=<interface> --proto=<proto>)
+  buffer_fuzz.py fuzz (--rhost=<rhost> --rport=<rport> --wait=<wait> --delta=<delta> --proto=<proto>) [--interface=<interface>]
+  buffer_fuzz.py send (--rhost=<rhost> --rport=<rport> --length=<integer> --proto=<proto>) [--interface=<interface>]
+  buffer_fuzz.py send_a (--rhost=<rhost> --rport=<rport> --length=<integer> --proto=<proto>) [--interface=<interface>]
 
 Options:
   --rhost=<rhost>           Target to host
   --rport=<rport>           Port to fuzz on target
   --length=<length>         Integer representing length of payload to fuzz buffer
-  --interface=<interface>   Source interface
+  --interface=<interface>   Source interface for outgoing packets
+  --wait=<wait>             Wait time between fuzzing attempts
+  --delta=<delta>           Increase payload each attempt during a fuzz
+  --proto=<proto>           Protocol to be used either UDP or TCP
 """
-
-
 from time import sleep
 from socket import AF_INET, SOCK_DGRAM, SOCK_STREAM, socket
 from netifaces import AF_INET, ifaddresses
@@ -51,14 +52,14 @@ def send_udp(rhost, rport, payload, iface=None):
 def send_tcp(rhost, rport, payload, iface=None):
     '''Send a payload to a tcp port'''
     print("sending payload to {} at port {} tcp".format(rhost, rport))
-    soc = socket(AF_INET,SOCK_STREAM)
-    soc.settimeout(2)
+    my_sock = socket(AF_INET,SOCK_STREAM)
+    my_sock.settimeout(2)
     if iface:
         iface_ip = ifaddresses(iface)[AF_INET][0]['addr']
-        soc.bind((iface_ip, 0))
-    soc.connect((rhost, int(rport)))
-    soc.send(payload)
-    response = soc.recv(1024)  # not sure if we care to receive?
+        my_sock.bind((iface_ip, 0))
+    my_sock.connect((rhost, int(rport)))
+    my_sock.send(payload)
+    response = my_sock.recv(1024)  # not sure if we care to receive?
     print("payload sent")
 
 def talk_to_service(rhost, rport, payload, iface, proto):
