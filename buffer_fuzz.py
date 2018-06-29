@@ -12,6 +12,9 @@ Options:
   --length=<length>         Integer representing length of payload to fuzz buffer
   --interface=<interface>   Source interface
 """
+#TODO: cleanup to do tcp and udp
+#TODO: combine with attack skeleton to make more advanced tool in single cli
+
 import socket
 
 from time import sleep
