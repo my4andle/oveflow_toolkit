@@ -8,4 +8,4 @@ I am not responsible for your actions, this code is to be used at your own risk 
 sudo python2 attack_skeleton.py --rhost <target_ip> --rport 1434 --proto udp --exploit MS02_039
 
 # Note
-I am uploading this code to use as a reference during my OSCP lab and exam report. There may be bugs, I may not update, it just needs to be accessible to offensive security instructors to prove my work.
+I am uploading this code to use as a reference during my OSCP lab and exam report. There may be bugs and I may not update this ever.
